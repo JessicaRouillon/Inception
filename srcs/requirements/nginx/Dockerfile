@@ -1,7 +1,7 @@
-FROM    alpine:3.19.0
+FROM    debian:bullseye
 
 # Download
-RUN     apk update && apk upgrade && apk add \
+RUN     apt update && apt upgrade -y && apt install -y \
             openssl \
             vim \
             nginx
@@ -17,7 +17,7 @@ COPY    conf/nginx.conf /etc/nginx/nginx.conf
 # Droits d' acces aux fichiers
 RUN     mkdir -p /var/www/html
 RUN     chmod 755 /var/www/html
-RUN     chown -R www-data:www-data /var/www/html
+#RUN     chown -R www-data:www-data /var/www/html
 
 CMD [ "nginx", "-g", "daemon off;" ]
 
