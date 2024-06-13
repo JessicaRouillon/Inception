@@ -1,4 +1,4 @@
 FROM    debian:bullseye
 
-RUN     apt update && apt upgrade
-RUN     apt add mariadb mariadb-client mariadb-server-utils
+RUN     apt update && apt upgrade -y
+RUN     apt install -y mariadb-server
