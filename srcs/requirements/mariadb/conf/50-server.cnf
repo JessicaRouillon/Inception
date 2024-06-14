@@ -1,0 +1,14 @@
+
+# MySQL standalone Daemon
+[mysqld]
+
+## Basic settings ##
+datadir = /var/lib/mysql
+port = 3306
+
+#path to the socket file the server will use for local connections
+socket = /run/mysqld/mysqld.sock
+
+# accept all IP addresses
+bind_address= 0.0.0.0
+user = mysql

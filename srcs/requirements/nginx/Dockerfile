@@ -1,7 +1,8 @@
 FROM    debian:bullseye
 
 # Download
-RUN     apt update && apt upgrade -y && apt install -y \
+RUN     apt update && apt upgrade -y
+RUN     apt install -y \
             openssl \
             vim \
             nginx
