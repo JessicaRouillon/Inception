@@ -27,7 +27,7 @@ else
                     --role=author \
                     --user_pass=$WP_USER_PASSWORD \
                     --allow-root
-    
+
     # Give rw permissions to the web server
     chown -R www-data:www-data /var/www/html/wp-content
     chown -R www-data:www-data /var/www/html
