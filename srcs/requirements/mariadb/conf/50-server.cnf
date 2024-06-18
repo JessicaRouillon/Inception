@@ -1,14 +1,20 @@
 
-# MySQL standalone Daemon
+[server]
 [mysqld]
 
 ## Basic settings ##
-datadir = /var/lib/mysql
+basedir = /usr   # base directory for db installation
+datadir = /var/lib/mysql   # directory to store db files
 port = 3306
 
-#path to the socket file the server will use for local connections
-socket = /run/mysqld/mysqld.sock
+# path to the socket file the server will use for local connections
+socket = /var/run/mysqld/mysqld.sock
+pid-file = /var/run/mysqld/mysqld.pid   # location to PID file for db (sotres the Process ID of server)
 
 # accept all IP addresses
 bind_address= 0.0.0.0
 user = mysql
+
+skip_networking = off
+max_allowed_packet = 64M
+log_error = /var/log/mysql/error.log

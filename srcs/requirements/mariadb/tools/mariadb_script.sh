@@ -20,9 +20,9 @@ else
     # restart pour activer: shutdown pour pouvoir restart avec exec plus bas
     mysqladmin -u root -p${SQL_ROOT_PASSWORD} shutdown
     echo "Database is ready !"
-clear_env= no;
-listen=wordpress:9000;
+
 fi
 sleep 1
 
 exec mysqld_safe
+
