@@ -1,0 +1,96 @@
+version: '3'  # Specifies the version of the Compose file format
+
+
+### MARIADB ###
+
+services:
+  mariadb:  # Define the MariaDB service
+    image: mariadb  # Use the official MariaDB image from Docker Hub
+    container_name: mariadb  # Set the container name to 'mariadb'
+    build:
+      context: ./requirements/mariadb  # Path to the build context for the Dockerfile
+      dockerfile: Dockerfile  # Name of the Dockerfile to use for building the image
+    volumes:
+      - mariadb:/var/lib/mysql  # Mount a volume to persist database data
+    expose:
+      - "3306"  # Expose port 3306 for MariaDB
+    networks:
+      - inception  # Connect to the 'inception' network
+    restart: unless-stopped  # Always restart the container unless it is explicitly stopped
+    env_file: .env  # Load environment variables from the '.env' file
+    healthcheck:
+      test: mysqladmin ping --host=localhost -p${SQL_ROOT_PASSWORD}  # Health check command to verify the service is up
+      interval: 5s  # Time between health checks
+      timeout: 1s  # Health check timeout
+      retries: 20  # Number of retries before marking the service as unhealthy
+      start_period: 5s  # Start period before starting health checks
+
+
+
+### WORDPRESS ###
+
+  wordpress:  # Define the WordPress service
+    image: wordpress  # Use the official WordPress image from Docker Hub
+    container_name: wordpress  # Set the container name to 'wordpress'
+    build:
+      context: ./requirements/wordpress  # Path to the build context for the Dockerfile
+      dockerfile: Dockerfile  # Name of the Dockerfile to use for building the image
+    volumes:
+      - wordpress:/var/www/html/wordpress  # Mount a volume to persist WordPress data
+    expose:
+      - "9000"  # Expose port 9000 for PHP-FPM
+    networks:
+      - inception  # Connect to the 'inception' network
+    restart: unless-stopped  # Always restart the container unless it is explicitly stopped
+    env_file: .env  # Load environment variables from the '.env' file
+    depends_on:
+      mariadb:
+        condition: service_healthy  # Wait for the MariaDB service to be healthy before starting
+
+
+
+### NGINX ###
+
+  nginx:  # Define the Nginx service
+    image: nginx  # Use the official Nginx image from Docker Hub
+    container_name: nginx  # Set the container name to 'nginx'
+    build:
+      context: ./requirements/nginx  # Path to the build context for the Dockerfile
+      dockerfile: Dockerfile  # Name of the Dockerfile to use for building the image
+    volumes:
+      - wordpress:/var/www/html/wordpress  # Mount a volume to serve WordPress files
+    depends_on:
+      - wordpress  # Wait for the WordPress service to be ready before starting
+    ports:
+      - "443:443"  # Map port 443 on the host to port 443 on the container
+    networks:
+      - inception  # Connect to the 'inception' network
+    restart: unless-stopped  # Always restart the container unless it is explicitly stopped
+    env_file: .env  # Load environment variables from the '.env' file
+    healthcheck:
+      test: 'curl -kfsSL https://localhost:443/status'  # Health check command to verify the service is up
+      interval: 5s  # Time between health checks
+      timeout: 1s  # Health check timeout
+      retries: 10  # Number of retries before marking the service as unhealthy
+      start_period: 5s  # Start period before starting health checks
+
+
+### VOLUMES ###
+
+volumes:
+  mariadb:
+    driver: local  # Use the local driver for the volume
+    driver_opts:
+      type: 'none'  # No specific type, bind to a host directory
+      o: 'bind'  # Bind the volume to a host directory
+      device: '/home/yatang/data/mariadb'  # Path to the host directory for MariaDB data
+  wordpress:
+    driver: local  # Use the local driver for the volume
+    driver_opts:
+      type: 'none'  # No specific type, bind to a host directory
+      o: 'bind'  # Bind the volume to a host directory
+      device: '/home/yatang/data/wordpress'  # Path to the host directory for WordPress data
+
+networks:
+  inception:
+    name: inception  # Name the network 'inception'
