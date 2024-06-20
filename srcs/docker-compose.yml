@@ -83,13 +83,13 @@ volumes:
     driver_opts:
       type: 'none'  # No specific type, bind to a host directory
       o: 'bind'  # Bind the volume to a host directory
-      device: '/home/yatang/data/mariadb'  # Path to the host directory for MariaDB data
+      device: '/home/jrouillo/data/mariadb'  # Path to the host directory for MariaDB data
   wordpress:
     driver: local  # Use the local driver for the volume
     driver_opts:
       type: 'none'  # No specific type, bind to a host directory
       o: 'bind'  # Bind the volume to a host directory
-      device: '/home/yatang/data/wordpress'  # Path to the host directory for WordPress data
+      device: '/home/jrouillo/data/wordpress'  # Path to the host directory for WordPress data
 
 networks:
   inception:
