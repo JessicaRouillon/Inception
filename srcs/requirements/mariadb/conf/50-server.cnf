@@ -2,16 +2,15 @@
 [server]
 [mysqld]
 
-## Basic settings ##
-basedir = /usr   # base directory for db installation
-datadir = /var/lib/mysql   # directory to store db files
+
+basedir = /usr
+datadir = /var/lib/mysql
 port = 3306
 
-# path to the socket file the server will use for local connections
-socket = /var/run/mysqld/mysqld.sock
-pid-file = /var/run/mysqld/mysqld.pid   # location to PID file for db (sotres the Process ID of server)
 
-# accept all IP addresses
+socket = /run/mysqld/mysqld.sock
+pid-file = /run/mysqld/mysqld.pid
+
 bind_address= 0.0.0.0
 user = mysql
 

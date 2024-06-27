@@ -21,7 +21,9 @@ COPY    conf/nginx.conf /etc/nginx/nginx.conf
 # Droits d' acces aux fichiers
 #RUN     mkdir -p /var/www/html
 RUN     chmod -R 755 /var/www/html
-RUN     chown -R www-data:www-data /var/www/html # chown changes the ownership to www-data user and group
+RUN     chown -R www-data:www-data /var/www/html 
+# chown changes the ownership to www-data user and group
+
 #EXPOSE  443
 
 CMD [ "nginx", "-g", "daemon off;" ]

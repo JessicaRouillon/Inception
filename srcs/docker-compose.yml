@@ -36,7 +36,7 @@ services:
       context: ./requirements/wordpress  # Path to the build context for the Dockerfile
       dockerfile: Dockerfile  # Name of the Dockerfile to use for building the image
     volumes:
-      - wordpress:/var/www/html/wordpress  # Mount a volume to persist WordPress data
+      - wordpress:/var/www/html  # Mount a volume to persist WordPress data
     expose:
       - "9000"  # Expose port 9000 for PHP-FPM
     networks:
@@ -58,7 +58,7 @@ services:
       context: ./requirements/nginx  # Path to the build context for the Dockerfile
       dockerfile: Dockerfile  # Name of the Dockerfile to use for building the image
     volumes:
-      - wordpress:/var/www/html/wordpress  # Mount a volume to serve WordPress files
+      - wordpress:/var/www/html  # Mount a volume to serve wp files
     depends_on:
       - wordpress  # Wait for the wp service to be ready before starting
     ports:

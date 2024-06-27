@@ -1,22 +1,25 @@
 all: 
-	mkdir -p /home/jrouillo/data/mariadb
-	mkdir -p /home/jrouillo/data/wordpress
-	docker compose -f ./srcs/docker-compose.yml build
-	docker compose -f ./srcs/docker-compose.yml up -d
+	sudo mkdir -p /home/jrouillo/data/mariadb
+	sudo mkdir -p /home/jrouillo/data/wordpress
+	sudo chmod 777 /home/jrouillo/data/mariadb
+	sudo chmod 777 /home/jrouillo/data/wordpress
+
+	sudo docker compose -f ./srcs/docker-compose.yml build
+	sudo docker compose -f ./srcs/docker-compose.yml up -d
 
 logs:
-	docker logs wordpress
-	docker logs mariadb
-	docker logs nginx
+	sudo docker logs wordpress
+	sudo docker logs mariadb
+	sudo docker logs nginx
 
 clean:
-	docker container stop nginx mariadb wordpress
-	docker network rm inception
+	sudo docker container stop nginx mariadb wordpress
+	sudo docker network rm inception
 
 fclean: clean
 	@sudo rm -rf /home/jrouillo/data/mariadb/*
 	@sudo rm -rf /home/jrouillo/data/wordpress/*
-	@docker system prune -af
+	@sudo docker system prune -af
 
 re: fclean all
 
