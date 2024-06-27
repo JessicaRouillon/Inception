@@ -8,12 +8,12 @@ RUN     apt install -y mariadb-server
 COPY    conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
 # Create the repositories and give permissions
-RUN     mkdir -p /home/jrouillo/data/mariadb
-RUN     mkdir -p /home/jrouillo/data/wordpress
-RUN     sudo chown -R $(whoami):$(whoami) /home/jrouillo/data/mariadb
-RUN     sudo chown -R $(whoami):$(whoami) /home/jrouillo/data/wordpress
-RUN     sudo chmod -R 755 /home/jrouillo/data/wordpress
-RUN     sudo chmod -R 755 /home/jrouillo/data/mariadb
+#RUN     mkdir -p /home/jrouillo/data/mariadb
+#RUN     mkdir -p /home/jrouillo/data/wordpress
+#RUN     sudo chown -R $(whoami):$(whoami) /home/jrouillo/data/mariadb
+#RUN     sudo chown -R $(whoami):$(whoami) /home/jrouillo/data/wordpress
+#RUN     sudo chmod -R 755 /home/jrouillo/data/wordpress
+#RUN     sudo chmod -R 755 /home/jrouillo/data/mariadb
 
 
 RUN     mkdir -p /var/run/mysqld

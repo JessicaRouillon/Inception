@@ -4,9 +4,9 @@ version: '3'  # Specifies the version of the Compose file format
 ### MARIADB ###
 
 services:
-  mariadb:  # Define the MariaDB service
-    image: mariadb  # Use the official MariaDB image from Docker Hub
-    container_name: mariadb  # Set the container name to 'mariadb'
+  mariadb:
+    image: mariadb
+    container_name: mariadb
     build:
       context: ./requirements/mariadb  # Path to the build context for the Dockerfile
       dockerfile: Dockerfile  # Name of the Dockerfile to use for building the image
@@ -29,9 +29,9 @@ services:
 
 ### WORDPRESS ###
 
-  wordpress:  # Define the WordPress service
-    image: wordpress  # Use the official WordPress image from Docker Hub
-    container_name: wordpress  # Set the container name to 'wordpress'
+  wordpress:
+    image: wordpress
+    container_name: wordpress
     build:
       context: ./requirements/wordpress  # Path to the build context for the Dockerfile
       dockerfile: Dockerfile  # Name of the Dockerfile to use for building the image
@@ -51,8 +51,8 @@ services:
 
 ### NGINX ###
 
-  nginx:  # Define the Nginx service
-    image: nginx  # Use the official Nginx image from Docker Hub
+  nginx:
+    image: nginx
     container_name: nginx  # Set the container name to 'nginx'
     build:
       context: ./requirements/nginx  # Path to the build context for the Dockerfile
@@ -60,7 +60,7 @@ services:
     volumes:
       - wordpress:/var/www/html/wordpress  # Mount a volume to serve WordPress files
     depends_on:
-      - wordpress  # Wait for the WordPress service to be ready before starting
+      - wordpress  # Wait for the wp service to be ready before starting
     ports:
       - "443:443"  # Map port 443 on the host to port 443 on the container
     networks:
@@ -83,14 +83,14 @@ volumes:
     driver_opts:
       type: 'none'  # No specific type, bind to a host directory
       o: 'bind'  # Bind the volume to a host directory
-      device: '/home/jrouillo/data/mariadb'  # Path to the host directory for MariaDB data
+      device: '/home/jrouillo/data/mariadb'  # Path to the host directory for MariadbB data
   wordpress:
     driver: local  # Use the local driver for the volume
     driver_opts:
       type: 'none'  # No specific type, bind to a host directory
       o: 'bind'  # Bind the volume to a host directory
-      device: '/home/jrouillo/data/wordpress'  # Path to the host directory for WordPress data
+      device: '/home/jrouillo/data/wordpress'  # Path to the host directory for wp data
 
 networks:
   inception:
-    name: inception  # Name the network 'inception'
+    name: inception
