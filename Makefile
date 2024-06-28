@@ -14,11 +14,11 @@ logs:
 
 clean:
 	sudo docker container stop nginx mariadb wordpress
-	sudo docker network rm inception
 
 fclean: clean
 	@sudo rm -rf /home/jrouillo/data/mariadb/*
 	@sudo rm -rf /home/jrouillo/data/wordpress/*
+	@sudo docker network rm inception
 	@sudo docker system prune -af
 
 re: fclean all

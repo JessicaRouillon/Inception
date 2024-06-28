@@ -31,37 +31,12 @@ else
                      --user_pass=${USER1_PASS} \
 					 --allow-root;
 
-    # Clear the object cache used by wp
-    # wp cache flush --allow-root
-
-    # # Give rw permissions to the web server
-    # #chown -R www-data:www-data /var/www/html/wp-content
-    # #chown -R www-data:www-data /var/www/html
-
-    # # it provides an easy-to-use interface for creating custom contact forms and managing submissions, as well as supporting various anti-spam techniques
-    # wp plugin install contact-form-7 --activate
-
-    # # set the site language to English
-    # wp language core install en_US --activate
-
-    # # remove default themes and plugins
-    # wp theme delete twentynineteen twentytwenty
-    # wp plugin delete hello
-
-    # # set the permalink structure
-    # wp rewrite structure '/%postname%/'
-
 fi
 
 wp plugin list --allow-root
 
 chown -R www-data:www-data /var/www/html
 chmod -R 755 /var/www/html
-
-# if [ ! -d /run/php ]; then
-#   mkdir /run/php;
-# fi
-
 
 # start the PHP FastCGI Process Manager (FPM) for PHP version 7.3 in the foreground
 exec /usr/sbin/php-fpm7.4 -F
